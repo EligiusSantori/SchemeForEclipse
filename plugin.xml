@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+   <extension
+         point="org.eclipse.ui.editors">
+      <editor
+            name="Scheme Editor"
+            extensions="scm"
+            contributorClass="org.eclipse.ui.texteditor.BasicTextEditorActionContributor"
+            class="scheme_for_eclipse.editors.SchemeEditor"
+            id="scheme_for_eclipse.editors.SchemeEditor">
+      </editor>
+   </extension>
+   <extension
+         point="org.eclipse.ui.preferencePages">
+      <page
+            class="scheme_for_eclipse.preferences.SchemePreferencePage"
+            id="scheme_for_eclipse.preferences.SchemePreferencePage"
+            name="Scheme">
+      </page>
+   </extension>
+   <extension
+         point="org.eclipse.core.runtime.preferences">
+      <initializer
+            class="scheme_for_eclipse.preferences.PreferenceInitializer">
+      </initializer>
+   </extension>
+
+</plugin>
