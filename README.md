@@ -8,4 +8,4 @@ Pretty basic and lightweight Scheme syntax highlighter for Eclipse IDE version 3
 - Unlike Scheme 48, this plugin works in modern versions of Eclipse.
 
 ## Installation
-Copy [scheme_for_eclipse_*.jar](https://drive.google.com/file/d/0B81jzuGkxK3nbE1LeHZFOXhodUE/view) file into "plugins" directory below your Eclipse directory.
+Copy [scheme_for_eclipse_*.jar](https://drive.google.com/file/d/0B81jzuGkxK3nMEJfT3R2dFZ4VTQ) file into "plugins" directory below your Eclipse directory.

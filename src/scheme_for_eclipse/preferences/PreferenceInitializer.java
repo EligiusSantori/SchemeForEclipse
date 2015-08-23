@@ -1,12 +1,11 @@
 package scheme_for_eclipse.preferences;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 import org.eclipse.core.runtime.preferences.AbstractPreferenceInitializer;
 import org.eclipse.jface.preference.IPreferenceStore;
+
 import scheme_for_eclipse.Activator;
 
 /**

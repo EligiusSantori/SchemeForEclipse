@@ -1,10 +1,11 @@
 package scheme_for_eclipse.preferences;
 
 import org.eclipse.jface.preference.FieldEditorPreferencePage;
-import org.eclipse.jface.preference.StringFieldEditor;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.layout.*;
-import org.eclipse.swt.widgets.*;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.TabFolder;
+import org.eclipse.swt.widgets.TabItem;
 import org.eclipse.ui.IWorkbench;
 import org.eclipse.ui.IWorkbenchPreferencePage;
 
@@ -40,17 +41,17 @@ public class SchemePreferencePage extends FieldEditorPreferencePage implements I
 		tabIdentifiers.setText("Identifiers");
 		tabIdentifiers.setControl(identifiers);
 		
-		addField(new StringFieldEditor(PreferenceInitializer.STYLE_STANDARD_SYNTAX, "Standard syntax style", styles));
-		addField(new StringFieldEditor(PreferenceInitializer.STYLE_STANDARD_IDENTIFIER, "Standard identifiers style", styles));
-		//addField(new StringFieldEditor(PreferenceInitializer.STYLE_USER_SYNTAX, "", styles));
-		//addField(new StringFieldEditor(PreferenceInitializer.STYLE_USER_IDENTIFIER, "", styles));
-		addField(new StringFieldEditor(PreferenceInitializer.STYLE_SYMBOL, "Symbols style", styles));
-		addField(new StringFieldEditor(PreferenceInitializer.STYLE_BOOLEAN, "Booleans style", styles));
-		addField(new StringFieldEditor(PreferenceInitializer.STYLE_NUMBER, "Numbers style", styles));
-		addField(new StringFieldEditor(PreferenceInitializer.STYLE_STRING, "Strings style", styles));
-		addField(new StringFieldEditor(PreferenceInitializer.STYLE_COMMENT, "Comment style", styles));
-		//addField(new StringFieldEditor(PreferenceInitializer.STYLE_BRACKET_DEFAULT, "Brackets style", styles));
-		addField(new StringFieldEditor(PreferenceInitializer.STYLE_BRACKET_CURRENT, "Highlighted brackets color", styles));
+		addField(new StyleFieldEditor(PreferenceInitializer.STYLE_STANDARD_SYNTAX, "Standard syntax style", styles));
+		addField(new StyleFieldEditor(PreferenceInitializer.STYLE_STANDARD_IDENTIFIER, "Standard identifiers style", styles));
+		//addField(new StyleFieldEditor(PreferenceInitializer.STYLE_USER_SYNTAX, "", styles));
+		//addField(new StyleFieldEditor(PreferenceInitializer.STYLE_USER_IDENTIFIER, "", styles));
+		addField(new StyleFieldEditor(PreferenceInitializer.STYLE_SYMBOL, "Symbols style", styles));
+		addField(new StyleFieldEditor(PreferenceInitializer.STYLE_BOOLEAN, "Booleans style", styles));
+		addField(new StyleFieldEditor(PreferenceInitializer.STYLE_NUMBER, "Numbers style", styles));
+		addField(new StyleFieldEditor(PreferenceInitializer.STYLE_STRING, "Strings style", styles));
+		addField(new StyleFieldEditor(PreferenceInitializer.STYLE_COMMENT, "Comment style", styles));
+		//addField(new StyleFieldEditor(PreferenceInitializer.STYLE_BRACKET_DEFAULT, "Brackets style", styles));
+		addField(new StyleFieldEditor(PreferenceInitializer.STYLE_BRACKET_CURRENT, "Highlighted brackets color", styles));
 
 		addField(new UniqueStringListEditor(PreferenceInitializer.KEYWORDS_SYNTAX, "", syntax));
 		addField(new UniqueStringListEditor(PreferenceInitializer.KEYWORDS_IDENTIFIER, "", identifiers));
@@ -59,11 +60,5 @@ public class SchemePreferencePage extends FieldEditorPreferencePage implements I
 	public void init(IWorkbench workbench)
 	{
 		setPreferenceStore(Activator.getDefault().getPreferenceStore());
-	}
-	
-	public boolean performOK()
-	{
-		
-		return super.performOk();
 	}
 }

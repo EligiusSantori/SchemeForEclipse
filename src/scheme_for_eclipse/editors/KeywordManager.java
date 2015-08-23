@@ -16,6 +16,12 @@ public class KeywordManager
 		this.store = store;
 	}
 	
+	public void reset()
+	{
+		syntax = null;
+		identifiers = null;
+	}
+	
 	public String[] getSyntax()
 	{
 		if(syntax == null)

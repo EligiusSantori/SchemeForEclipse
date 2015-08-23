@@ -9,7 +9,6 @@ import org.eclipse.jface.text.source.ICharacterPairMatcher;
 import org.eclipse.jface.text.source.ISourceViewer;
 import org.eclipse.jface.text.source.MatchingCharacterPainter;
 import org.eclipse.jface.text.source.SourceViewer;
-import org.eclipse.jface.text.source.SourceViewerConfiguration;
 import org.eclipse.jface.util.IPropertyChangeListener;
 import org.eclipse.jface.util.PropertyChangeEvent;
 import org.eclipse.swt.widgets.Display;
@@ -20,8 +19,7 @@ import scheme_for_eclipse.preferences.PreferenceInitializer;
 
 public class SchemeEditor extends TextEditor
 {
-	// TODO preferences, indexer & autocomplete
-	// TODO icon, double-click strategy
+	// TODO icon, double-click strategy, indexer & autocomplete
 	
 	private StyleManager style;
 	private KeywordManager keywords;
@@ -48,9 +46,13 @@ public class SchemeEditor extends TextEditor
 				if(properties.contains(event.getProperty()))
 				{
 					style.doLoad();
+					keywords.reset();
+					
 					SchemeScanner scanner = configuration.getScanner();
 					if(scanner != null)
 						scanner.doLoad();
+						
+					bracketPainter.setColor(style.BRACKET_CURRENT.getForeground());
 					
 					ISourceViewer sourceViewer = getSourceViewer();
 					if(sourceViewer instanceof SourceViewer)
@@ -66,7 +68,7 @@ public class SchemeEditor extends TextEditor
 		
 		paintManager = new PaintManager(getSourceViewer());
 		
-		char[] brackets = new char[] { '(', ')', '[', ']', '{', '}' };
+		char[] brackets = new char[] { '(', ')', '[', ']', '{', '}' }; // TODO preferences (checkboxes, general tab)
 		ICharacterPairMatcher pairMatcher = new DefaultCharacterPairMatcher(brackets);
 		bracketPainter = new MatchingCharacterPainter(getSourceViewer(), pairMatcher);
 		bracketPainter.setHighlightCharacterAtCaretLocation(true);
