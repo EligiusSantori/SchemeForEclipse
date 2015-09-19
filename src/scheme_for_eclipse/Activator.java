@@ -3,6 +3,8 @@ package scheme_for_eclipse;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
+// TODO icon, double-click strategy, indexer & autocomplete
+
 public final class Activator extends AbstractUIPlugin
 {
 	public static final String PLUGIN_ID = "scheme_for_eclipse";

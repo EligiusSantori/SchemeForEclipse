@@ -25,11 +25,45 @@ public class StyleFieldEditor extends FieldEditor
 			foreground = new RGB(0, 0, 0);
 		}
 		
+		public Style(String s)
+		{
+			for(String p : s.trim().toLowerCase().split(" "))
+			{
+				if(p.matches("0x[0-9a-f]{6}"))
+				{
+					int rgb = Integer.decode(p);
+					int r = (rgb >> 16) & 0xff;
+					int g = (rgb >> 8) & 0xff;
+					int b = rgb & 0xff;
+					foreground = new RGB(r, g, b);
+				}
+				else if(p.equals("bold"))
+					bold = true;
+				else if(p.equals("italic"))
+					italic = true;
+			}
+		}
+		
 		public Style(RGB f, boolean b, boolean i)
 		{
 			foreground = f;
 			bold = b;
 			italic = i;
+		}
+		
+		public String toString()
+		{
+			String s = "";
+			if(foreground != null)
+			{
+				int rgb = foreground.red << 16 | foreground.green << 8 | foreground.blue;
+				s += String.format("0x%06x", rgb);
+			}
+			if(bold)
+				s += " bold";
+			if(italic)
+				s += " italic"; 
+			return s.trim();
 		}
 		
 		public RGB foreground;
@@ -77,7 +111,7 @@ public class StyleFieldEditor extends FieldEditor
 	{
 		if(colorSelector != null && boldCheckbox != null && italicCheckbox != null)
 		{
-			Style s = parseStyle(getPreferenceStore().getString(getPreferenceName()));
+			Style s = new Style(getPreferenceStore().getString(getPreferenceName()));
 			colorSelector.setColorValue(s.foreground);
 			boldCheckbox.setSelection(s.bold);
 			italicCheckbox.setSelection(s.italic);
@@ -88,7 +122,7 @@ public class StyleFieldEditor extends FieldEditor
 	{
 		if(colorSelector != null && boldCheckbox != null && italicCheckbox != null)
 		{		
-			Style s = parseStyle(getPreferenceStore().getDefaultString(getPreferenceName()));
+			Style s = new Style(getPreferenceStore().getDefaultString(getPreferenceName()));
 			colorSelector.setColorValue(s.foreground);
 			boldCheckbox.setSelection(s.bold);
 			italicCheckbox.setSelection(s.italic);
@@ -99,9 +133,8 @@ public class StyleFieldEditor extends FieldEditor
 	{
 		if(colorSelector != null && boldCheckbox != null && italicCheckbox != null)
 		{
-			String s = buildStyle(colorSelector.getColorValue(), boldCheckbox.getSelection(), italicCheckbox.getSelection());
-			if (s != null)
-				getPreferenceStore().setValue(getPreferenceName(), s);
+			Style s = new Style(colorSelector.getColorValue(), boldCheckbox.getSelection(), italicCheckbox.getSelection());
+			getPreferenceStore().setValue(getPreferenceName(), s.toString());
 		}
 	}
 
@@ -112,9 +145,6 @@ public class StyleFieldEditor extends FieldEditor
 	
 	protected Point computeImageSize(Control window)
 	{
-		// Make the image height as high as a corresponding character. This
-		// makes sure that the button has the same size as a "normal" text
-		// button.
 		GC gc = new GC(window);
 		Font f = JFaceResources.getFontRegistry().get(
 				JFaceResources.DEFAULT_FONT);
@@ -123,44 +153,6 @@ public class StyleFieldEditor extends FieldEditor
 		gc.dispose();
 		Point p = new Point(height * 3 - 6, height);
 		return p;
-	}
-	
-	private Style parseStyle(String s)
-	{
-		Style style = new Style();
-		
-		for(String p : s.trim().toLowerCase().split(" "))
-		{
-			if(p.matches("0x[0-9a-f]{6}"))
-			{
-				int rgb = Integer.decode(p);
-				int r = (rgb >> 16) & 0xff;
-				int g = (rgb >> 8) & 0xff;
-				int b = rgb & 0xff;
-				style.foreground = new RGB(r, g, b);
-			}
-			else if(p.equals("bold"))
-				style.bold = true;
-			else if(p.equals("italic"))
-				style.italic = true;
-		}
-		
-		return style;
-	}
-	
-	private String buildStyle(RGB foreground, boolean bold, boolean italic)
-	{
-		String s = "";
-		if(foreground != null)
-		{
-			int rgb = foreground.red << 16 | foreground.green << 8 | foreground.blue;
-			s += String.format("0x%06x", rgb);
-		}
-		if(bold)
-			s += " bold";
-		if(italic)
-			s += " italic"; 
-		return s.trim();
 	}
 	
 	protected Button getChangeControl(Composite parent)

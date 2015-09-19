@@ -19,8 +19,6 @@ import scheme_for_eclipse.preferences.PreferenceInitializer;
 
 public class SchemeEditor extends TextEditor
 {
-	// TODO icon, double-click strategy, indexer & autocomplete
-	
 	private StyleManager style;
 	private KeywordManager keywords;
 

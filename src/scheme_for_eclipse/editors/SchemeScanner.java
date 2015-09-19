@@ -24,6 +24,8 @@ public class SchemeScanner extends RuleBasedScanner
 	
 	public void doLoad()
 	{
+		// TODO #... #\... &... `... ,... #;... #b... #o... #d... #x... #i #I #e #E
+		
 		setRules(new IRule[]
 		{
 			new NumberRule(new Token(style.NUMBER)), // TODO rewrite
